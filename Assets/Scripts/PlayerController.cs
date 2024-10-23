@@ -4,7 +4,11 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
     
+    [SerializeField] private float jumpForce;
+    [SerializeField] private Color[] colors;
+    
     private Rigidbody2D rigidBody;
+    private SpriteRenderer spriteRenderer;
     
     private void Awake()
     {
@@ -13,6 +17,12 @@ public class PlayerController : MonoBehaviour
             Instance = this;
         }
         rigidBody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        this.spriteRenderer.color = colors[Random.Range(0, colors.Length)];
     }
 
     private void Update()
@@ -20,12 +30,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log(rigidBody.velocity);
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 5f);
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
         }
     }
 
-    public void OnDeathGroundCollision()
+    public SpriteRenderer GetSpriteRenderer()
     {
+        return this.spriteRenderer;
+    }
+    
+    public void OnWallOrGroundCollision()
+    {
+        UIManager.Instance.SetGameOverScreen(true);
         Destroy(this.gameObject);
     }
 }

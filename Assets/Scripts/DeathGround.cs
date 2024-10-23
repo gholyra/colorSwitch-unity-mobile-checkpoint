@@ -6,7 +6,7 @@ public class DeathGround : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            PlayerController.Instance.OnDeathGroundCollision();
+            PlayerController.Instance.OnWallOrGroundCollision();
         }
     }
 }

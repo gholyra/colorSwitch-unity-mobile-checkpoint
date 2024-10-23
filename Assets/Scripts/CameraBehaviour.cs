@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour
 {
-    private float higherYValue;
+    private float highestYValue;
     
     private void Update()
     {
@@ -11,12 +10,12 @@ public class CameraBehaviour : MonoBehaviour
         {
             CheckHigherYValue();
         }
-        transform.position = new Vector3(transform.position.x, higherYValue, transform.position.z);
+        transform.position = new Vector3(transform.position.x, highestYValue, transform.position.z);
     }
 
     private void CheckHigherYValue()
     {
-        if (PlayerController.Instance.transform.position.y > higherYValue)
-            higherYValue = PlayerController.Instance.transform.position.y;
+        if (PlayerController.Instance.transform.position.y > highestYValue)
+            highestYValue = PlayerController.Instance.transform.position.y;
     }
 }
